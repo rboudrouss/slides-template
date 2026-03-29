@@ -1,15 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Title from "../slides/Title.astro";
-import WhyAstro from "../slides/WhyAstro.astro";
+
+const slideModules = Object.values(
+	import.meta.glob<{ default: any }>("../slides/*.astro", { eager: true })
+);
 ---
 
 <Layout title="My Awesome Talk Title">
 	<main class="reveal">
 		<div class="slides">
-			<Title />
-			<WhyAstro />
-			<!-- Put your slides here -->
+			{slideModules.map(({ default: Slide }) => <Slide />)}
 		</div>
 	</main>
 </Layout>
